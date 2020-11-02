@@ -24,6 +24,27 @@ class RocketConfig extends Config(
   new freechips.rocketchip.subsystem.WithCoherentBusTopology ++  // hierarchical buses including mbus+l2
   new freechips.rocketchip.system.BaseConfig)                    // "base" rocketchip system
 
+class HPMERocketConfig extends Config(
+  new chipyard.iobinders.WithUARTAdapter ++                      // display UART with a SimUARTAdapter
+  new chipyard.iobinders.WithTieOffInterrupts ++                 // tie off top-level interrupts
+  new chipyard.iobinders.WithSimAXIMem ++                        // drive the master AXI4 memory with a SimAXIMem, a 1-cycle magic memory
+  new chipyard.iobinders.WithTiedOffDebug ++                     // tie off debug (since we are using SimSerial for testing)
+  new chipyard.iobinders.WithSimSerial ++                        // drive TSI with SimSerial for testing
+  new testchipip.WithTSI ++                                      // use testchipip serial offchip link
+  new chipyard.config.WithBootROM ++                             // use default bootrom
+  new chipyard.config.WithUART ++                                // add a UART
+  new chipyard.config.WithL2TLBs(1024) ++                        // use L2 TLB
+  new freechips.rocketchip.subsystem.WithExtMemSize((1<<30) * 4L) ++ // use 4GB simulated external memory
+  new freechips.rocketchip.subsystem.WithNoMMIOPort ++           // no top-level MMIO master port (overrides default set in rocketchip)
+  new freechips.rocketchip.subsystem.WithNoSlavePort ++          // no top-level MMIO slave port (overrides default set in rocketchip)
+  new freechips.rocketchip.subsystem.WithInclusiveCache ++       // use Sifive L2 cache
+  new freechips.rocketchip.subsystem.WithNExtTopInterrupts(0) ++ // no external interrupts
+  new freechips.rocketchip.subsystem.WithNBigCores(1) ++         // single rocket-core
+  new freechips.rocketchip.subsystem.WithCoherentBusTopology ++  // hierarchical buses including mbus+l2
+  new testchipip.WithBackingScratchpad ++                        // use backing scratchpad
+  new hpme.WithHPME ++                                           // use HPME
+  new freechips.rocketchip.system.BaseConfig)                    // "base" rocketchip system
+
 class HwachaRocketConfig extends Config(
   new chipyard.iobinders.WithUARTAdapter ++
   new chipyard.iobinders.WithTieOffInterrupts ++

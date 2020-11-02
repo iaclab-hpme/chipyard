@@ -128,3 +128,6 @@
 [submodule "tools/dromajo/dromajo-src"]
 	path = tools/dromajo/dromajo-src
 	url = https://github.com/riscv-boom/dromajo.git
+[submodule "generators/hpme"]
+	path = generators/hpme
+	url = https://github.com/iaclab-hpme/hpme
