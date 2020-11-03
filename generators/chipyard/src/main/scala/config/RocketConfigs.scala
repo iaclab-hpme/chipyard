@@ -41,7 +41,7 @@ class HPMERocketConfig extends Config(
   new freechips.rocketchip.subsystem.WithNExtTopInterrupts(0) ++ // no external interrupts
   new freechips.rocketchip.subsystem.WithNBigCores(1) ++         // single rocket-core
   new freechips.rocketchip.subsystem.WithCoherentBusTopology ++  // hierarchical buses including mbus+l2
-  new testchipip.WithBackingScratchpad ++                        // use backing scratchpad
+  new testchipip.WithBackingScratchpad(base = 0x70000000) ++     // use backing scratchpad
   new hpme.WithHPME ++                                           // use HPME
   new freechips.rocketchip.system.BaseConfig)                    // "base" rocketchip system
 
